@@ -39,7 +39,7 @@
         </div>
 
         <div>
-          <input @click="logOut()" type="submit" value="Выйти"/>
+          <div class="logOut" @click="logOut()"  >Выйти</div>
         </div>
       </form>
 
@@ -67,7 +67,7 @@ export default {
     },
   },
   beforeCreate() {
-    if (localStorage.getItem('LoginedUser') == false) {
+    if (localStorage.getItem('LoginedUser') == null) {
       this.$router.push('/')
     }
   },
@@ -119,7 +119,7 @@ export default {
 
     },
      logOut() {
-       localStorage.setItem('LoginedUser', '');
+       localStorage.removeItem('LoginedUser');
        this.$router.push('/')
     },
     status(validation) {

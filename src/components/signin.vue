@@ -41,7 +41,7 @@ export default {
     }
   },
   beforeCreate() {
-    if (localStorage.getItem('LoginedUser') != false) {
+    if (localStorage.getItem('LoginedUser') != null) {
       this.$router.push('/profile')
     }
     if (JSON.parse(localStorage.getItem('users')) == null) {
