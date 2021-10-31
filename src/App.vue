@@ -491,5 +491,10 @@ line-height: 30px;
  background-color: red;
   color:white;
 }
+label {
+  margin-left: 0.4rem;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
 </style>
 
