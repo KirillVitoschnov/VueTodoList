@@ -17,10 +17,10 @@
 
         <div>
           <span class="title-section">Добавление новой задачи</span>
-          <input v-model="$v.newTask.$model" :class="status($v.newTask)" class="task-input" autocomplete="off"
+          <input v-on:keyup.enter="addTask" v-model="$v.newTask.$model" :class="status($v.newTask)" class="task-input" autocomplete="off"
                  placeholder="Укажите задачу"/>
 
-          <div @click="addTask" class="add-task">
+          <div  @click="addTask" class="add-task">
             <div class="plus alt"></div>
             <div>Добавить задачу</div>
           </div>
@@ -32,6 +32,7 @@
             <div class="task">{{ item.task }}</div>
             <div class="task-buttons">
               <div @click="changeStatus(item.id)" v-if="item.status=='Активно'" class="task-completed">Завершить</div>
+              <div @click="taskEdit(item.id)" v-if="item.status=='Активно'" class="task-reduct">Редактировать</div>
               <div @click="changeStatus(item.id)" v-else class="task-activate">Возобновить</div>
               <div @click="taskDelete(item.id)" class="task-delete">Удалить</div>
             </div>
@@ -44,6 +45,15 @@
       </form>
 
     </section>
+    <b-modal id="taskEdit" hide-footer>
+      <div class="content">
+        <input  v-on:keyup.enter="saveTask(modalTaskId)" v-model="modal_input" class="input-edit">
+        <div class="modal-button-wrap">
+        <button @click="saveTask(modalTaskId)" class="button-modal-save">Cохранить</button>
+        <button @click="$bvModal.hide('taskEdit');" class="button-modal-cancel">Отменить</button>
+        </div>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -54,6 +64,8 @@ export default {
   name: 'profile',
   data() {
     return {
+      modalTaskId:'',
+      modal_input:'',
       checkedFilter: '',
       filterArray: [],
       newTask: '',
@@ -79,7 +91,25 @@ export default {
   },
 
   methods: {
-
+    saveTask(id){
+      var arr = this.taskArray[this.taskArray.findIndex(x => x.user == this.current_user)].tasks
+      const index = arr.findIndex(n => n.id === id);
+      if (index !== -1) {
+        arr[index].task=this.modal_input
+        this.$bvModal.hide('taskEdit');
+      }
+      this.taskArray[this.taskArray.findIndex(x => x.user == this.current_user)].tasks = arr
+      localStorage.setItem('users', JSON.stringify(this.taskArray));
+    },
+    taskEdit(id){
+      var arr = this.taskArray[this.taskArray.findIndex(x => x.user == this.current_user)].tasks
+      const index = arr.findIndex(n => n.id === id);
+      if (index !== -1) {
+        this.modal_input=arr[index].task
+        this.modalTaskId=id
+        this.$bvModal.show('taskEdit');
+      }
+    },
     changeStatus(id) {
       var arr = this.taskArray[this.taskArray.findIndex(x => x.user == this.current_user)].tasks
       const index = arr.findIndex(n => n.id === id);

@@ -423,7 +423,7 @@ margin: 0.5rem;
   border-radius: 30px;
   background-color: #0c7979;
   color:white;
-  width:30%;
+  width:33%;
   overflow: hidden;
 }
 .task-buttons{
@@ -472,6 +472,24 @@ line-height: 30px;
 
   font-size: 16px;
   letter-spacing: 1px;
+}
+.input-edit{
+  width:100%
+}
+.modal-button-wrap{
+  justify-content:end;
+  margin-top: 1rem;
+  display:flex;
+  flex-wrap: wrap;
+}
+.button-modal-save{
+  margin-right: 1rem;
+  background-color: green;
+  color:white;
+}
+.button-modal-cancel{
+ background-color: red;
+  color:white;
 }
 </style>
 
