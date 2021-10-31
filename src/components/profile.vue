@@ -6,7 +6,7 @@
         <span class="title-section">Фильтр по задачам</span>
         <div class="filter-wrapper">
           <div class="filter-wrapper"><input type="radio" id="all" value="" v-model="checkedFilter">
-            <label for="active">Показать все</label></div>
+            <label for="all">Показать все</label></div>
           <div class="filter-wrapper"><input type="radio" id="active" value="Активно" v-model="checkedFilter">
             <label for="active">Активные задачи</label></div>
           <div class="filter-wrapper">
